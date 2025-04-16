@@ -12,13 +12,40 @@ Currently, the implementation uses a simple threshold-based approach on valence 
 
 These binary labels are then used to train a Naive Bayes classifier for sentiment prediction.
 
+## Current Progress
+
+- ✅ Data loading and initial exploration completed
+- ✅ Implemented binary sentiment labeling based on valence threshold (5.0)
+- ✅ Initial distribution analysis shows 57,799 "happy" songs vs 32,202 "sad" songs
+- ✅ Successfully integrated Last.fm API (pylast) for retrieving song tags
+- ✅ Created helper functions to format and display tag data
+- 🔄 Working on feature extraction from Last.fm tags for classifier input
+
+## Dataset Analysis
+
+The muSE dataset contains 90,001 songs with the following features:
+- Basic metadata: track name, artist, lastfm_url
+- Seeds: Emotion tags used to collect the songs
+- Emotion metrics:
+  - valence_tags: Musical positiveness (ranges from ~0.2 to ~8.5)
+  - arousal_tags: Energy/intensity (ranges from ~0.1 to ~7.3)
+  - dominance_tags: Power/strength conveyed (ranges from ~0.2 to ~7.4)
+- Additional information: mbid, spotify_id, genre
+
+Data analysis reveals:
+- No missing values in core features (track, artist, emotion metrics)
+- Some missing values in optional identifiers (mbid: 28,784, spotify_id: 28,371)
+- 6,639 songs missing genre information
+
 ## Technologies
 
 ### Current Technologies
-- **Python 3.10**: Core programming language
+- **Python 3.10+**: Core programming language
 - **pandas**: For data manipulation and analysis
 - **NumPy**: For numerical operations
 - **Jupyter Notebook**: For interactive development and data exploration
+- **pylast**: Python interface to the Last.fm API
+- **python-dotenv**: For environment variable management
 
 ### Planned Technologies
 - **scikit-learn**: For implementing the Naive Bayes classifier and other ML algorithms
@@ -35,6 +62,7 @@ These binary labels are then used to train a Naive Bayes classifier for sentimen
 - Python 3.10+
 - pip
 - virtualenv (recommended)
+- Last.fm API credentials (for tag retrieval functionality)
 
 ### Installation
 
@@ -60,26 +88,29 @@ These binary labels are then used to train a Naive Bayes classifier for sentimen
    pip install -r requirements.txt
    ```
 
-4. Download the muSE dataset
+4. Set up Last.fm API access
+   - Create a `.env` file in the project root with your Last.fm API credentials:
+   ```
+   LASTFM_API_KEY=your_api_key
+   LASTFM_API_SECRET=your_api_secret
+   LASTFM_API_USERNAME=your_username
+   LASTFM_API_PASSWORD=your_password
+   ```
+
+5. Download the muSE dataset
    - The raw data file (`muse_v3.csv`) should be placed in the `data/raw/` directory
    - Note: You may need to request access to the dataset if you don't already have it
-
-### Dataset
-
-The muSE dataset contains 90,001 songs with the following features:
-- Basic metadata: track name, artist, lastfm_url
-- Seeds: Emotion tags used to collect the songs
-- Emotion metrics:
-  - valence_tags: Musical positiveness (ranges from ~0.2 to ~8.5)
-  - arousal_tags: Energy/intensity (ranges from ~0.1 to ~7.3)
-  - dominance_tags: Power/strength conveyed (ranges from ~0.2 to ~7.4)
-- Additional information: mbid, spotify_id, genre
 
 ### Running the Jupyter Notebooks
 
 To explore the data cleaning process:
 ```
 jupyter notebook notebooks/data-cleaning.ipynb
+```
+
+To explore Last.fm tag retrieval:
+```
+jupyter notebook notebooks/lastfm_music_tags.ipynb
 ```
 
 ## Project Structure
@@ -91,24 +122,22 @@ music-sentiment-analysis/
 │   │   └── muse_v3.csv  # muSE dataset
 │   └── processed/       # Processed data files
 ├── notebooks/
-│   └── data-cleaning.ipynb  # Data preprocessing notebook
+│   ├── data-cleaning.ipynb      # Data preprocessing
+│   └── lastfm_music_tags.ipynb  # Last.fm API tag retrieval
 ├── venv/                # Virtual environment
+├── .env                 # API credentials (not committed to repo)
 ├── .gitignore           # Git ignore file
 └── README.md            # This file
 ```
 
-## Current Progress
+## Next Steps
 
-- Data loading and initial exploration completed
-- Implemented binary sentiment labeling based on valence threshold (5.0)
-- Initial distribution analysis shows 57,799 "happy" songs vs 32,202 "sad" songs
-
-## Future Work
-
-- Implement Naive Bayes classifier for sentiment prediction
+- Complete Naive Bayes classifier implementation using tag features
+- Create a feature matrix combining valence scores and tag information
+- Implement cross-validation for model evaluation
+- Experiment with different classification algorithms (SVM, Random Forest)
 - Incorporate additional features beyond valence (arousal, dominance)
 - Consider genre-specific thresholds for more accurate labeling
-- Experiment with different classification algorithms (SVM, Random Forest)
 - Expand beyond binary classification to multi-class sentiment analysis
 - Evaluate model performance using various metrics (accuracy, F1-score, ROC)
 - Potentially incorporate audio features if available
