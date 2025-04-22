@@ -15,6 +15,7 @@ def display_tags_table(track_info, limit=30):
     # Limit to specified number
     tag_data = tag_data[:limit]
     
+    
     # Create a DataFrame for display
     df = pd.DataFrame(tag_data, columns=['Tag', 'Weight'])
     
