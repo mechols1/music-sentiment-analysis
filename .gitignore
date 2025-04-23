@@ -59,4 +59,4 @@ logs/
 .env.local
 .venv
 
-song-search.py
+tests/
