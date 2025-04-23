@@ -58,3 +58,5 @@ logs/
 .env
 .env.local
 .venv
+
+song-search.py
