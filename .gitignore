@@ -59,4 +59,10 @@ logs/
 .env.local
 .venv
 
+# Test files
 tests/
+
+# Database files
+data/
+cleaned/
+raw/
