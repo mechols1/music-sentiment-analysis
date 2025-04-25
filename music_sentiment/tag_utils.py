@@ -23,6 +23,8 @@ def display_tags_table(track_info, limit=30):
     return df
 
 def process_tag_weights(song_tags):
-    """Process tags with weights for text analysis"""
-    # create a weighted text representation where more important tags appear more frequently
-    return " ".join([tag[0] for tag in song_tags for _ in range(min(int(tag[1]//10), 10))])
+    """Process tags to create a dictionary with tag names and weights"""
+    # Create a dictionary where keys are tag names and values are weights
+    tag_dict = {tag[0]: tag[1] for tag in song_tags}
+    # Return the dictionary
+    return tag_dict
