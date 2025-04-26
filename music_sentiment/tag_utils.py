@@ -1,5 +1,7 @@
 import pandas as pd
 
+from music_sentiment.lastfm_api import get_lastfm_network, get_song_tags
+
 #for data processing and making table for tags and songs
 
 # we will be using tags a lot, so let's create a function for
@@ -23,8 +25,20 @@ def display_tags_table(track_info, limit=30):
     return df
 
 def process_tag_weights(song_tags):
-    """Process tags to create a dictionary with tag names and weights"""
-    # Create a dictionary where keys are tag names and values are weights
-    tag_dict = {tag[0]: tag[1] for tag in song_tags}
-    # Return the dictionary
-    return tag_dict
+ 
+
+    """Process tags with weights for text analysis"""
+ 
+
+    # create a weighted text representation where more important tags appear more frequently
+ 
+
+    return " ".join([tag[0] for tag in song_tags for _ in range(min(int(tag[1]//10), 10))])
+
+# def tags_dict_to_text(tags_dict):
+#     if isinstance(tags_dict, dict):
+#         return ' '.join(tags_dict.keys())
+#     elif pd.isna(tags_dict):
+#         return ''
+#     else:
+#         return str(tags_dict)
