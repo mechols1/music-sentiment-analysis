@@ -1,23 +1,23 @@
 # Core data libraries
-pandas==1.3.5
-numpy==1.21.6
+pandas
+numpy
 
 # Machine learning libraries
-scikit-learn==1.0.2
+scikit-learn
 
 # Visualization
-matplotlib==3.4.3
-seaborn==0.11.2
+matplotlib
+seaborn
 
 # Last.fm API
-pylast==4.2.1
+pylast
 
 # Environment management
-python-dotenv==0.19.2
+python-dotenv
 
 # Testing
-pytest==6.2.5
+pytest
 
 # Jupyter notebooks
-jupyter==1.0.0
-ipykernel==6.9.1
+Jupyter
+ipykernel
